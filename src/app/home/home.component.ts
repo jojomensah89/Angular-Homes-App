@@ -11,14 +11,19 @@ import { HousingService } from "../housing.service";
   template: `
     <section>
       <form>
-        <input type="text" placeholder="Filter by city" #filter />
-        <button
+        <input
+          type="text"
+          placeholder="Filter by city"
+          #filter
+          (onChange)="filterResults(filter.value)"
+        />
+        <!-- <button
           class="primary"
           type="button"
           (click)="filterResults(filter.value)"
         >
           Search
-        </button>
+        </button> -->
       </form>
     </section>
     <section class="results">
@@ -37,6 +42,7 @@ export class HomeComponent {
   constructor() {
     this.housingService.getAllHousingLocations().then((locations) => {
       this.housingLocationList = locations;
+      console.log(this.housingLocationList);
     });
     this.filterResults("");
   }
@@ -44,6 +50,8 @@ export class HomeComponent {
     if (!text) {
       this.filteredLocationList = this.housingLocationList;
     }
+    console.log(this.housingLocationList);
+
     this.filteredLocationList = this.housingLocationList.filter(
       (housingLocation) =>
         housingLocation?.city.toLowerCase().includes(text.toLowerCase())
