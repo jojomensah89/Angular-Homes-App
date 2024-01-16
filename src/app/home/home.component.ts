@@ -11,19 +11,14 @@ import { HousingService } from "../housing.service";
   template: `
     <section>
       <form>
-        <input
-          type="text"
-          placeholder="Filter by city"
-          #filter
-          (onChange)="filterResults(filter.value)"
-        />
-        <!-- <button
+        <input type="text" placeholder="Filter by city" #filter />
+        <button
           class="primary"
           type="button"
           (click)="filterResults(filter.value)"
         >
           Search
-        </button> -->
+        </button>
       </form>
     </section>
     <section class="results">
@@ -36,22 +31,24 @@ import { HousingService } from "../housing.service";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent {
+  readonly baseUrl = "https://angular.dev/assets/tutorials/common";
+
   housingLocationList: HousingLocation[] = [];
-  filteredLocationList: HousingLocation[] = [];
   housingService: HousingService = inject(HousingService);
+  filteredLocationList: HousingLocation[] = [];
   constructor() {
-    this.housingService.getAllHousingLocations().then((locations) => {
-      this.housingLocationList = locations;
-      console.log(this.housingLocationList);
-    });
-    this.filterResults("");
+    this.housingService
+      .getAllHousingLocations()
+      .then((housingLocationList: HousingLocation[]) => {
+        this.housingLocationList = housingLocationList;
+        this.filteredLocationList = housingLocationList;
+      });
   }
   filterResults(text: string) {
     if (!text) {
       this.filteredLocationList = this.housingLocationList;
     }
-    console.log(this.housingLocationList);
-
+    console.log("searching", text);
     this.filteredLocationList = this.housingLocationList.filter(
       (housingLocation) =>
         housingLocation?.city.toLowerCase().includes(text.toLowerCase())

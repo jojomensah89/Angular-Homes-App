@@ -59,7 +59,6 @@ export class DetailsComponent {
     lastName: new FormControl(""),
     email: new FormControl(""),
   });
-
   constructor() {
     const housingLocationId = parseInt(this.route.snapshot.params["id"], 10);
     this.housingService
