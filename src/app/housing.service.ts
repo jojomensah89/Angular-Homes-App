@@ -6,7 +6,7 @@ import axios from "axios";
   providedIn: "root",
 })
 export class HousingService {
-  url = "http://localhost:3000/locations";
+  url = "https://nextjs-dashboard-dun-xi-36.vercel.app/api/locations";
 
   async getAllHousingLocations(): Promise<HousingLocation[]> {
     try {
